@@ -9,6 +9,10 @@ import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.message.data.Image;
 import net.mamoe.mirai.utils.ExternalResource;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -38,7 +42,7 @@ public final class Plugin extends JavaPlugin {
             if(content.startsWith("$") && content.endsWith("$")) {
                 try{
                     content = content.length() >= 3? content.substring(1, content.length() - 1) : "";
-                    URL url1 = new URL("https://latex.codecogs.com/png.image?\\dpi{110}" + URLEncoder.encode(content, "UTF-8").replace("+", "%20"));
+                    URL url1 = new URL("https://latex.codecogs.com/png.image?\\LARGE%20\\dpi{200}\\bg{white}" + URLEncoder.encode(content, "UTF-8").replace("+", "%20"));
                     URLConnection uc = url1.openConnection();
                     InputStream inputStream = uc.getInputStream();
 
@@ -56,6 +60,7 @@ public final class Plugin extends JavaPlugin {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
+                    event.getSubject().sendMessage("公式转换出错，请重试！");
                     e.printStackTrace();
                 }
             }
